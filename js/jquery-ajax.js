@@ -70,7 +70,46 @@
   //    get a new dog, click the button, get a new dog, etc.
   //
 
-  // TODO: your code goes here :)
+  $('#generateDoggoBtn').click(clickBtn)
+ 
+let doggieHouse = document.getElementById('doggoContainer')
+
+  function clickBtn () {
+
+  if (doggieHouse.hasChildNodes() === false){
+  $.getJSON( "https://dog.ceo/api/breeds/image/random", function( data ) { 
+    $( "<img>", {"src": data.message, "class":"treats"}).appendTo( $('#doggoContainer'))
+      })
+    .done(function() {
+     $('#generateDoggoBtn').prop("disabled", false);
+     $('#generateDoggoBtn').html("Generate Doggo");
+  })
+    $('#generateDoggoBtn').prop("disabled", true);
+    $('#generateDoggoBtn').html("Generating Doggo ...");
+}
+ 
+ 
+$.getJSON( "https://dog.ceo/api/breeds/image/random", function( data ) { 
+  $('.treats').replaceWith( $("<img>", {"src": data.message,"class":"treats"}))
+  
+ })
+ .done(function() {
+     $('#generateDoggoBtn').prop("disabled", false);
+     $('#generateDoggoBtn').html("Generate Doggo");
+  })
+    $('#generateDoggoBtn').prop("disabled", true);
+    $('#generateDoggoBtn').html("Generating Doggo ...");
+ 
+
+
+
+}
+let selection = document.getElementById('selectBreedContainer');
+ $( "<select>",{"class":"kind"}).appendTo( $('#selectBreedContainer'))
+ $("<option>Select Breed</option>",{"value":"Select"}).appendTo( $('.kind'));
+ $("<option>Poodle</option>",{"value":"Poodle"}).appendTo( $('.kind'));
+
+  
 
   //
   // Cool. Now let's kick it up a notch and allow selecting a specific breed of dog!

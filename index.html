@@ -2,6 +2,7 @@
 <html class="no-js" lang="">
 
 <head>
+  response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>AJAX Examples</title>
@@ -43,7 +44,9 @@
       <hr />
 
       <button class="btn btn-primary" id="generateDoggoBtn">Generate Doggo</button>
-      <div id="doggoContainer"></div>
+      <div id="doggoContainer">
+        
+      </div>
 
       <hr />
 
