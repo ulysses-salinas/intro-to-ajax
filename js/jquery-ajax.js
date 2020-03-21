@@ -26,9 +26,9 @@
   // Below is our jumbotron example from the previous tab done using jQuery's $.load() method:
   //
 
-  $('#loadBtn2').click(clickBtn)
+  $('#loadBtn2').click(clickJumboBtn)
 
-  function clickBtn () {
+  function clickJumboBtn () {
     $('#jumbotronContainer2').load('jumbotron.html')
     $('#loadBtn2').remove()
   }
@@ -69,46 +69,79 @@
   //    inside of <div id="doggoContainer">. There should be a loop where you click the button,
   //    get a new dog, click the button, get a new dog, etc.
   //
+  $(function() {
+    $.ajax({
+      url: "https://dog.ceo/api/breeds/list",
+      success: function (data) { 
+        $.each(data, function(key,val){
+         
+         for (let i = 0; i<val.length;i++){
+           if (val[i].length > 1){
 
-  $('#generateDoggoBtn').click(clickBtn)
+           
+          $("<option class='catch'>"+ val[i].charAt(0).toUpperCase() + val[i].slice(1) +"</option>",
+          {"value":val[i]}).appendTo($('.kind'))
+        }
+      }
+        }); 
+      },
+      
+  });
+    
+  });
+  $('#generateDoggoBtn').click(clickDoggoBtn)
  
-let doggieHouse = document.getElementById('doggoContainer')
-
-  function clickBtn () {
-
-  if (doggieHouse.hasChildNodes() === false){
-  $.getJSON( "https://dog.ceo/api/breeds/image/random", function( data ) { 
-    $( "<img>", {"src": data.message, "class":"treats"}).appendTo( $('#doggoContainer'))
-      })
-    .done(function() {
-     $('#generateDoggoBtn').prop("disabled", false);
-     $('#generateDoggoBtn').html("Generate Doggo");
-  })
-    $('#generateDoggoBtn').prop("disabled", true);
-    $('#generateDoggoBtn').html("Generating Doggo ...");
-}
- 
- 
-$.getJSON( "https://dog.ceo/api/breeds/image/random", function( data ) { 
-  $('.treats').replaceWith( $("<img>", {"src": data.message,"class":"treats"}))
   
- })
- .done(function() {
-     $('#generateDoggoBtn').prop("disabled", false);
-     $('#generateDoggoBtn').html("Generate Doggo");
-  })
-    $('#generateDoggoBtn').prop("disabled", true);
-    $('#generateDoggoBtn').html("Generating Doggo ...");
- 
-
-
-
-}
-let selection = document.getElementById('selectBreedContainer');
- $( "<select>",{"class":"kind"}).appendTo( $('#selectBreedContainer'))
- $("<option>Select Breed</option>",{"value":"Select"}).appendTo( $('.kind'));
- $("<option>Poodle</option>",{"value":"Poodle"}).appendTo( $('.kind'));
-
+  
+    function clickDoggoBtn () {
+  
+    if ($('#doggoContainer').children().length === 0){
+      
+    $.getJSON("https://dog.ceo/api/breeds/image/random", function (data) { 
+      $("<img>",{"src": data.message,"class":"treats"}).appendTo($('#doggoContainer'))
+        })
+      .done(function() {
+       $('#generateDoggoBtn').prop("disabled", false);
+       $('#generateDoggoBtn').html("Generate Doggo");
+    })
+      $('#generateDoggoBtn').prop("disabled", true);
+      $('#generateDoggoBtn').html("Generating Doggo ...");
+  }
+   
+  
+  $.getJSON("https://dog.ceo/api/breeds/image/random", function (data) { 
+    $('.treats').replaceWith( $("<img>", {"src": data.message,"class":"treats"}))
+    
+   })
+   .done(function() {
+       $('#generateDoggoBtn').prop("disabled", false);
+       $('#generateDoggoBtn').html("Generate Doggo");
+    })
+      $('#generateDoggoBtn').prop("disabled", true);
+      $('#generateDoggoBtn').html("Generating Doggo ...");
+  
+  
+  
+  
+  }
+  
+   $( "<select>",{"class":"kind","size":"10"}).appendTo( $('#selectBreedContainer'))
+   $("<option>--Select Breed--</option>",{"value":"select","class":"catch"}).appendTo( $('.kind'));
+   $('select').on('change', function() {
+    $.getJSON("https://dog.ceo/api/breed/"+this.value.toLowerCase()+"/images/random", function (data) { 
+      if ($('#doggoContainer').children().length === 0){
+      $("<img>",{"src": data.message,"class":"treats"}).appendTo($('#doggoContainer'))
+      }
+      $('.treats').replaceWith( $("<img>", {"src": data.message,"class":"treats","value":this.value}))
+        })
+        $('select').on('click', function() {
+          $.getJSON("https://dog.ceo/api/breed/"+this.value.toLowerCase()+"/images/random", function (data) { 
+            
+            $('.treats').replaceWith( $("<img>", {"src": data.message,"class":"treats"}))
+              })
+        
+        });
+  });
   
 
   //
