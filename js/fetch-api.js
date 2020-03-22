@@ -89,11 +89,54 @@
   //
   //    Don't forget to disable the button while the AJAX request is active, and re-enable
   //    it once done.
-  //
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.thecatapi.com/v1/breeds?attach_breed=0",
+    "method": "GET",
+    "headers": {
+      "x-api-key": "c82b3c49-a7aa-4b99-85b7-77b7e408c611"
+    }
+  }
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+  });
 
-  // TODO: your code goes here :)
 
   //
+  const catBtn = document.getElementById('generateCatBtn')
+  catBtn.addEventListener('click', clickCatBtn)
+
+
+  function clickCatBtn () {
+    $('#generateCatBtn').prop("disabled", true);
+       $('#generateCatBtn').html("Generating Gato ...");
+    fetch('https://api.thecatapi.com/v1/images/search?size=full&mime_types=jpg&format=json&has_breeds=1&order=RANDOM&page=0&limit=1')
+    .then((response) => response.json())
+    
+    .then((result) => {
+      
+    if ($('#catContainer').children().length === 0){
+        $("<img>",{"src": result[0].url,"class":"temptations"}).appendTo($('#catContainer'))
+        $('#generateCatBtn').html("Generate Gato");
+        $('#generateCatBtn').prop("disabled", false);
+      }
+        $('.temptations').replaceWith( $("<img>", {"src": result[0].url,"class":"temptations"}))
+        $('#generateCatBtn').html("Generate Gato");
+        $('#generateCatBtn').prop("disabled", false);
+      })
+      
+      function gato () {
+        
+        
+     }
+       
+  }
+  
+
+
+
   // What else can you build with your new AJAX knowledge?
   //
   // How about a cats vs dogs contest where the user clicks a button to load a random dog and random cat.
