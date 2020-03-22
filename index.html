@@ -30,6 +30,10 @@
       <li class="nav-item">
         <a class="nav-link" href="#fetch" id="fetchNavLink">Fetch API</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#vote" id="voteNavLink">Vote</a>
+      </li>
+      
     </ul>
 
     <section class="body-section" id="basicBodyContainer" style="display:none">
@@ -72,6 +76,28 @@
 
     </section>
 
+    <section class="body-section" id="voteBodyContainer" style="display:none">
+      <h2>Vote for the<code> CUTEST </code> pets!</h2>
+      <hr />
+      <div class="d-flex flex-row justify-content-around">
+      <div class="d-flex flex-column text-center">
+      <h2> TOTAL GATITO VOTES:  </h2><button class="btn btn-primary" id="voteGatito" >0</button>
+      <hr />
+      <div id="litterBox"></div>
+      <hr />
+     </div>
+    <div class="d-flex flex-column text-center ">
+      <h2> TOTAL PERRITO VOTES:  </h2><button class="btn btn-primary" id="votePerrito">0</button>
+      <hr />
+      <div id="junkYard"></div>
+    </div>
+  </div>
+
+      <!-- What fun thing can you build here using APIs + AJAX? -->
+
+    </section>
+    
+
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -79,6 +105,7 @@
   <script src="js/basic-ajax.js"></script>
   <script src="js/jquery-ajax.js"></script>
   <script src="js/fetch-api.js"></script>
+  <script src="js/vote.js"></script>
 </body>
 
 </html>
