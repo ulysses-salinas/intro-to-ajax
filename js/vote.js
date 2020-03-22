@@ -41,14 +41,19 @@
 });
 
 $('#voteGatito').on('click', function() {
-
+    
 fetch('https://api.thecatapi.com/v1/images/search?size=full&mime_types=jpg&format=json&has_breeds=1&order=RANDOM&page=0&limit=1')
         .then((response) => response.json())
         
         .then((result) => {
-          
+            
             $('.meow').replaceWith( $("<img>", {"src": result[0].url,"class":"meow","width":"500", "height":"400"})) 
-
+            
+            catCounter.innerHTML = catCount;
+            $('#voteGatito').prop("disabled", false);
+            $('#votePerrito').prop("disabled", false);
+           
+            
         })
         fetch('https://dog.ceo/api/breeds/image/random')
         .then((response) => response.json())
@@ -56,6 +61,8 @@ fetch('https://api.thecatapi.com/v1/images/search?size=full&mime_types=jpg&forma
         .then((result) => {
             
         $('.bark').replaceWith( $("<img>", {"src": result.message,"class":"bark","width":"500", "height":"400"}))
+        dogCounter.innerHTML = dogCount;
+       
 
         })
 
@@ -71,7 +78,7 @@ $('#votePerrito').on('click', function() {
     .then((result) => {
       
         $('.meow').replaceWith( $("<img>", {"src": result[0].url,"class":"meow","width":"500", "height":"400"})) 
-
+        catCounter.innerHTML = catCount;
     })
     fetch('https://dog.ceo/api/breeds/image/random')
     .then((response) => response.json())
@@ -79,7 +86,9 @@ $('#votePerrito').on('click', function() {
     .then((result) => {
         
     $('.bark').replaceWith( $("<img>", {"src": result.message,"class":"bark","width":"500", "height":"400"}))
-
+    dogCounter.innerHTML = dogCount;
+    $('#votePerrito').prop("disabled", false);
+    $('#voteGatito').prop("disabled", false);
     })
 
     
@@ -95,8 +104,11 @@ $('#votePerrito').on('click', function() {
    
         catCount++;
     
-    catCounter.innerHTML = catCount;
     
+    $('#voteGatito').html("Generating Gato ...");
+    $('#voteGatito').prop("disabled", true);
+    $('#votePerrito').html("Generating Perro ...");
+    $('#votePerrito').prop("disabled", true);
 });
 
 let dogCounter = document.getElementById('votePerrito');
@@ -105,8 +117,13 @@ let dogCounter = document.getElementById('votePerrito');
     dogCounter.addEventListener('click', function(){
    
         dogCount++;
+
+    $('#votePerrito').html("Generating Perro ...");
+    $('#votePerrito').prop("disabled", true);
+    $('#voteGatito').html("Generating Gato ...");
+    $('#voteGatito').prop("disabled", true);
     
-    dogCounter.innerHTML = dogCount;
+    
     
 });
 
